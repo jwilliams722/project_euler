@@ -1,26 +1,96 @@
 require 'spec_helper'
 
-describe Problem3 do
-  describe '.factors_of(number)' do
-    it "should return the prime factors of a passed number" do
-      factors_of_array = [5, 7, 13, 29]
-      expect(subject.prime_factors_of(13195)).to eq(factors_of_array)
+# A palindromic number reads the same both ways. The largest palindrome made from the
+# product of two 2-digit numbers is 9009 = 91 × 99.
+# Find the largest palindrome made from the product of two 3-digit numbers.
+
+describe Problem4 do
+  describe ".palindrome?(string)" do
+    it "should return true for empty string" do
+      expect(subject.palindrome?("")).to be_true
+    end
+    it "should return true for string with one letter" do
+      expect(subject.palindrome?("a")).to be_true
     end
 
-    it "should handle nil values" do
-      factors_of_array = []
-      expect(subject.prime_factors_of(nil)).to eq(factors_of_array)
+    describe "two letter strings" do
+      it "should return true for aa" do
+        expect(subject.palindrome?("aa")).to be_true
+      end
+
+      it "should return false for ab" do
+        expect(subject.palindrome?("ab")).to be_false
+      end
     end
 
-    it "should handle values that are not Integers" do
-      factors_of_array = []
-      expect(subject.prime_factors_of("Cat")).to eq(factors_of_array)
+    describe "three letter strings" do
+      it "should return true for aba" do
+        expect(subject.palindrome?("aba")).to be_true
+      end
+
+      it "should return false for abc" do
+        expect(subject.palindrome?("abc")).to be_false
+      end
+    end
+
+    describe "common palindrome strings" do
+      it "should return true for dad" do
+        expect(subject.palindrome?("dad")).to be_true
+      end
+
+      it "should return true for radar" do
+        expect(subject.palindrome?("radar")).to be_true
+      end
+
+      it "should return true for racecar" do
+        expect(subject.palindrome?("racecar")).to be_true
+      end
+
+      it "should return false for doughnut" do
+        expect(subject.palindrome?("doughnut")).to be_false
+      end
+    end
+
+    describe "it handles symbols and white space" do
+      it "should return false for $%!@#" do
+        expect(subject.palindrome?("$%!@#")).to be_true
+      end
+
+      it "should know about a man, a plan, a canal, PANAMA!" do
+        expect(subject.palindrome?("A man, a plan, a canal, PANAMA!")).to be_true
+      end
+    end
+
+    describe "it handles numbers" do
+      it "should return false for 1" do
+        expect(subject.palindrome?(1)).to be_true
+      end
+
+      it "should return true for 11" do
+        expect(subject.palindrome?(11)).to be_true
+      end
+
+      it "should return false for 12" do
+        expect(subject.palindrome?(12)).to be_false
+      end
+
+      it "should return true for 121" do
+        expect(subject.palindrome?(121)).to be_true
+      end
+
+      it "should return false for 123" do
+        expect(subject.palindrome?(123)).to be_false
+      end
+
+      it "should return true for 32123" do
+        expect(subject.palindrome?(32123)).to be_true
+      end
     end
   end
 
-  describe ".largest_prime_factor(number)" do
-    it "should return the largest prime factor for a number" do
-      expect(subject.largest_prime_factor(600851475143)).to eq(6857)
+  describe ".largest_palindrome_from_three_digit_multiples" do
+    it "should multiply all three digit numbers and return the largest palindrome result" do
+      expect(subject.largest_palindrome_from_three_digit_multiples).to eq(906609)
     end
   end
 end
